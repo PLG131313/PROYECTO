@@ -31,7 +31,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="../index1.php">✈️ AeroLine</a>
+        <a class="navbar-brand" href="../index.php">✈️ AeroLine</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -134,7 +134,7 @@
                 .then(data => {
                     if (data.trim() === '0') {
                         alert("Se registro correctamente")
-                        window.location.href = '../index1.php';
+                        window.location.href = '../index.php';
                     } else {
                         alert(data);
                     }

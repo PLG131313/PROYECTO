@@ -23,8 +23,8 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="../index1.php">✈️ AeroLine</a>
-        <a class="nav-link text-white" href="../index1.php">Cerrar Sesión</a>
+        <a class="navbar-brand" href="../index.php">✈️ AeroLine</a>
+        <a class="nav-link text-white" href="../index.php">Cerrar Sesión</a>
     </div>
 </nav>
 
