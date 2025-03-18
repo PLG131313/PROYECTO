@@ -43,7 +43,7 @@
         <div class="card-body p-3">
             <?= $htmlReservas ?>
         </div>
-        <?= $htmlPaginacion ?>s
+        <?= $htmlPaginacion ?>
     </div>
 </div>
 
