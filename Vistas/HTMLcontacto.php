@@ -125,34 +125,26 @@
         <div class="row">
             <div class="col-lg-6">
                 <h2 class="mb-4">Envíanos un mensaje</h2>
-                <form id="contactForm" class="needs-validation" novalidate>
+                <form id="contactForm" action="../php/procesar_contacto.php" method="POST" class="needs-validation" novalidate>
                     <div class="mb-3">
                         <label for="name" class="form-label">Nombre completo</label>
-                        <input type="text" class="form-control" id="name" required>
-                        <div class="invalid-feedback">
-                            Por favor ingresa tu nombre
-                        </div>
+                        <input type="text" class="form-control" id="name" name="nombre" required>
+                        <div class="invalid-feedback">Por favor ingresa tu nombre</div>
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" required>
-                        <div class="invalid-feedback">
-                            Por favor ingresa un email válido
-                        </div>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                        <div class="invalid-feedback">Por favor ingresa un email válido</div>
                     </div>
                     <div class="mb-3">
                         <label for="subject" class="form-label">Asunto</label>
-                        <input type="text" class="form-control" id="subject" required>
-                        <div class="invalid-feedback">
-                            Por favor ingresa el asunto
-                        </div>
+                        <input type="text" class="form-control" id="subject" name="asunto" required>
+                        <div class="invalid-feedback">Por favor ingresa el asunto</div>
                     </div>
                     <div class="mb-3">
                         <label for="message" class="form-label">Mensaje</label>
-                        <textarea class="form-control" id="message" rows="5" required></textarea>
-                        <div class="invalid-feedback">
-                            Por favor ingresa tu mensaje
-                        </div>
+                        <textarea class="form-control" id="message" name="mensaje" rows="5" required></textarea>
+                        <div class="invalid-feedback">Por favor ingresa tu mensaje</div>
                     </div>
                     <button type="submit" class="btn btn-primary">Enviar mensaje</button>
                 </form>
