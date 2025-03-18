@@ -15,7 +15,7 @@ if (empty($nombre) || empty($email) || empty($asunto) || empty($mensaje)) {
 $insertar = "INSERT INTO contacto (nombre, email, asunto, mensaje) VALUES ('$nombre', '$email', '$asunto', '$mensaje')";
 
 if (mysqli_query($conexion, $insertar)) {
-    echo "<script>window.location.href='index.php';</script>";
+    echo "<script>window.location.href='../index.php';</script>";
 } else {
     echo "<script>alert('Error en el envío del mensaje.'); window.history.back();</script>";
 }
