@@ -6,26 +6,35 @@
     <title>AeroLine - Sistema de Gestión de Vuelos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
     <style>
+        /* imagen  */
+        /*la pongo aqui para poder tocarle mas facilmente el estilo*/
         .hero-section {
             background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
             url('img/alaAvion.jpg') no-repeat center center;
             background-size: cover;
-            height: 100vh;
+            height: 100vh; /* toda la pantalla */
         }
+
+
         .login-container {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 15px;
             padding: 30px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Sombra */
         }
+
+        /* pagina actva */
         .nav-tabs .nav-link.active {
-            font-weight: bold;
-            color: #0d6efd;
+            font-weight: bold; /* negrita */
+            color: #0d6efd; /
         }
     </style>
 </head>
 <body>
+
+<!-- Barra de navegación -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
         <a class="navbar-brand" href="#">✈️ AeroLine</a>
@@ -34,9 +43,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-
                 <li class="nav-item">
-                    <a class="nav-link" href="Vistas/HTMLcontacto.php">Contacto</a>
+                    <a class="nav-link" href="Vistas/HTMLcontacto.php">Contacto</a> <!-- contacto -->
                 </li>
             </ul>
         </div>
@@ -48,6 +56,7 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="login-container">
+                    <!-- Pestañas de inicio de sesión -->
                     <ul class="nav nav-tabs mb-4" role="tablist">
                         <li class="nav-item">
                             <button class="nav-link active" id="client-tab" data-bs-toggle="tab" data-bs-target="#client-login">
@@ -56,13 +65,13 @@
                         </li>
                         <li class="nav-item">
                             <button class="nav-link" id="pilot-tab" data-bs-toggle="tab" data-bs-target="#pilot-login">
-                                <i class="fas fa-plane"></i> Administrador
+                                <i class="fas fa-plane"></i> Piloto
                             </button>
                         </li>
                     </ul>
 
                     <div class="tab-content">
-                        <!-- Formulario Cliente -->
+                        <!-- Formulario de inicio de sesión para clientes -->
                         <div class="tab-pane fade show active" id="client-login">
                             <form id="clientLoginForm">
                                 <div class="mb-3">
@@ -73,14 +82,16 @@
                                     <label for="clientPassword" class="form-label">Contraseña</label>
                                     <input type="password" class="form-control" id="clientPassword" name="contrasena" required>
                                 </div>
-                                <button type="button" onclick="loginClient()" class="btn btn-primary w-100">Iniciar Sesión</button><br><br>
+                                <button type="button" onclick="loginClient()" class="btn btn-primary w-100">Iniciar Sesión</button> <!-- inicio cliente -->
+                                <br><br>
                             </form>
 
+                            <!-- Registro -->
                             <div style="text-align: center"><a href="Vistas/HTMLregistro.php">Regístrate</a></div>
-                            <div id="clientLoginMessage" class="mt-3 text-center"></div>
+                            <div id="clientLoginMessage" class="mt-3 text-center"></div> <!-- respuesta -->
                         </div>
 
-                        <!-- Formulario Administrador -->
+                        <!-- Piloto -->
                         <div class="tab-pane fade" id="pilot-login">
                             <form id="pilotLoginForm">
                                 <div class="mb-3">
@@ -91,10 +102,10 @@
                                     <label for="pilotPassword" class="form-label">Contraseña</label>
                                     <input type="password" class="form-control" id="pilotPassword" name="contrasena" required>
                                 </div>
-                                <button type="button" onclick="loginPilot()" class="btn btn-primary w-100">Iniciar Sesión</button>
+                                <button type="button" onclick="loginPilot()" class="btn btn-primary w-100">Iniciar Sesión</button> <!-- inicio piloto -->
                             </form>
 
-                            <div id="pilotLoginMessage" class="mt-3 text-center"></div>
+                            <div id="pilotLoginMessage" class="mt-3 text-center"></div> <!-- respuesta -->
                         </div>
                     </div>
                 </div>
@@ -103,15 +114,18 @@
     </div>
 </section>
 
+<!-- Pie de página -->
 <footer class="bg-dark text-light py-4">
     <div class="container text-center">
         <p>&copy; 2025 AeroLine - Sistema de Gestión de Vuelos</p>
     </div>
 </footer>
 
+<!-- Scripts de Bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
+    // Función para iniciar sesión como cliente
     function loginClient() {
         const formData = new FormData();
         formData.append("email", document.getElementById("clientEmail").value);
@@ -123,13 +137,14 @@
         })
             .then(response => response.text())
             .then(data => {
-                document.getElementById("clientLoginMessage").innerHTML = data;
+                document.getElementById("clientLoginMessage").innerHTML = data; // respuesta
                 if (data == "0") {
-                    window.location.href = "Vistas/HTMLcliente.php";
+                    window.location.href = "Vistas/HTMLcliente.php"; //paso a cliente
                 }
             });
     }
 
+    // Función para iniciar sesión como administrador
     function loginPilot() {
         const formData = new FormData();
         formData.append("pilotId", document.getElementById("pilotId").value);
@@ -141,12 +156,13 @@
         })
             .then(response => response.text())
             .then(data => {
-                document.getElementById("pilotLoginMessage").innerHTML = data;
+                document.getElementById("pilotLoginMessage").innerHTML = data; // respuesta
                 if (data == "0") {
-                    window.location.href = "php/panel_piloto.php";
+                    window.location.href = "php/panel_piloto.php"; // paso al login
                 }
             });
     }
 </script>
-    </body>
+
+</body>
 </html>

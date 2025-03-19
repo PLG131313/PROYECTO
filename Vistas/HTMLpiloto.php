@@ -5,13 +5,40 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        body { background: #f8f9fa; }
-        .header { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
-        url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05') center/cover; color: white;
-            padding: 100px 0 50px; text-align: center; margin-bottom: 30px; }
-        .card { border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 20px; }
-        .card-header { background-color: #0d6efd; color: white; font-weight: bold; padding: 15px; }
-        .center-content { display: flex; justify-content: center; align-items: center; height: 20vh; }
+
+        body {
+            background: #f0f0f5;
+            font-family: Arial, sans-serif;
+        }
+
+        /* pongo imagen aqui para tener poder tocer mejor sus estilos */
+        .header {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+            url('../img/fotopiloto.jpeg') center/cover;
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        /* Tarjetas de información */
+        .card {
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .card-header {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+            padding: 10px;
+        }
+
+        /* Centrando los botones de paginación y subiéndolos ligeramente */
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px; /* Reducido de 20px a 10px para subir un poco los botones */
+        }
     </style>
 </head>
 <body>
@@ -30,7 +57,7 @@
     </div>
 </header>
 <div class="container">
-    <div class="row center-content">
+    <div class="row justify-content-center">
         <div class="col-md-4">
             <div class="card p-3 text-center">
                 <h2><?= $totalReservas ?></h2>
@@ -43,7 +70,9 @@
         <div class="card-body p-3">
             <?= $htmlReservas ?>
         </div>
-        <?= $htmlPaginacion ?>
+        <div class="pagination-container">
+            <?= $htmlPaginacion ?>
+        </div>
     </div>
 </div>
 

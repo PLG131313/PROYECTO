@@ -13,10 +13,69 @@
             padding: 60px 0;
             margin-bottom: 30px;
         }
+
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 80vh; /* 80% de la pantalla */
+            justify-content: space-between;
+        }
+
         .success-message {
             display: none;
             margin-top: 20px;
         }
+
+        .form-container {
+            flex-grow: 1;
+        }
+
+        footer {
+            position: relative;
+            bottom: 0;
+        }
+
+        .additional-info {
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        /* Estilo para el texto de AeroLine con el avión */
+        .airline-logo h2 {
+            font-size: 36px;
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            color: #ff0000; /* Azul brillante */
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        /* Estilo para el avión (emoji) con un pequeño efecto */
+        .airline-logo h2::before {
+            content: '✈️'; /* Avión antes del texto */
+            position: absolute;
+            top: -10px;
+            left: -40px;
+            font-size: 40px;
+            animation: fly 2s infinite linear;
+        }
+
+        /* Animación para el avión */
+        @keyframes fly {
+            0% {
+                transform: translateX(-20px);
+            }
+            50% {
+                transform: translateX(20px);
+            }
+            100% {
+                transform: translateX(-20px);
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -34,9 +93,9 @@
     <p>Sistema de Reservas de Vuelos</p>
 </header>
 
-<!-- Formulario de Reserva -->
-<div class="container mb-5">
-    <div class="card">
+<!-- Contenedor principal con Flexbox -->
+<div class="container mb-5 main-container">
+    <div class="card form-container">
         <div class="card-body">
             <h3 class="card-title mb-4">Nueva Reserva</h3>
 
@@ -57,9 +116,9 @@
                     <div class="col-md-6">
                         <label class="form-label">Clase</label>
                         <select class="form-control" name="flightClass" required>
-                            <option value="ECONOMY">Económica</option>
-                            <option value="BUSINESS">Ejecutiva</option>
-                            <option value="FIRST">Primera Clase</option>
+                            <option value="Economico">Económica</option>
+                            <option value="Clase media">Clase media</option>
+                            <option value="Primera Clase">Primera Clase</option>
                         </select>
                     </div>
                 </div>
@@ -74,58 +133,75 @@
                     Descargar Ticket PDF
                 </button>
             </div>
+
+            <!-- Nombre y Logo de la aerolínea -->
+            <div class="additional-info">
+                <div class="airline-logo">
+                    <h2>AeroLine</h2>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+<!-- Footer -->
 <footer class="bg-dark text-light py-4">
     <div class="container text-center">
         <p>&copy; 2025 AeroLine - Sistema de Gestión de Vuelos</p>
     </div>
 </footer>
+
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // Establecer fecha mínima
-        const dateInput = document.querySelector('input[name="departureDate"]');
-        dateInput.min = new Date().toISOString().split('T')[0];
+    document.addEventListener('DOMContentLoaded', function() {
+        // Establecer fecha mínima para el campo de fecha
+        document.querySelector('input[name="departureDate"]').min = new Date().toISOString().split('T')[0];
 
-        // Manejar envío del formulario
-        document.getElementById('bookingForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const form = e.target;
-            const submitBtn = form.querySelector('button[type="submit"]');
-            submitBtn.disabled = true;
+        // Manejar el envío del formulario
+        document.getElementById('bookingForm').onsubmit = function(e) {
+            e.preventDefault(); // Evitar que se recargue la página
 
-            try {
-                const response = await fetch('../php/reserva.php', {
-                    method: 'POST',
-                    body: new FormData(form)
+            var form = e.target;  // Obtener el formulario
+            var submitBtn = form.querySelector('button[type="submit"]');
+            submitBtn.disabled = true; // Desactivar el botón de enviar
+
+            var formData = new FormData(form); // Recoger los datos del formulario
+
+            // Enviar los datos al servidor usando fetch
+            fetch('../php/reserva.php', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json()) // lo paso a JSON
+                .then(data => {
+                    if (data.exito) {
+                        // Si la reserva es exitosa
+                        form.style.display = 'none'; // Ocultar el formulario
+                        document.getElementById('successMessage').style.display = 'block'; // Muestro mensaje de exito
+
+                        //el boton de pdf
+                        document.getElementById('downloadPdfBtn').onclick = function() {
+                            window.open(data.url_pdf, '_blank');
+                        };
+
+                        // Descargo pdf
+                        setTimeout(function() {
+                            window.open(data.url_pdf, '_blank');
+                        }, 1000);
+                    } else {
+                        // Si hubo un error
+                        alert(data.mensaje);
+                    }
+                })
+                .catch(error => {
+                    // Manejo errores
+                    alert('Error al procesar la reserva');
+                    console.error(error);
+                })
+                .finally(() => {
+                    submitBtn.disabled = false; // Rehabilitar el botón de enviar
                 });
-
-                const data = await response.json();
-
-                if (data.exito) {
-                    // Mostrar mensaje de éxito
-                    form.style.display = 'none';
-                    document.getElementById('successMessage').style.display = 'block';
-
-                    // Configurar botón de descarga
-                    const downloadBtn = document.getElementById('downloadPdfBtn');
-                    downloadBtn.onclick = () => window.open(data.url_pdf, '_blank');
-
-                    // Descargar PDF automáticamente
-                    setTimeout(() => window.open(data.url_pdf, '_blank'), 1000);
-                } else {
-                    alert(data.mensaje);
-                }
-            } catch (error) {
-                alert('Error al procesar la reserva');
-                console.error(error);
-            }
-
-            submitBtn.disabled = false;
-        });
+        };
     });
 </script>
 </body>
 </html>
-

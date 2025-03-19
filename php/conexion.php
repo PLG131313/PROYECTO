@@ -1,8 +1,8 @@
 <?php
-$servidor = getenv('DB_HOST');
-$usuario  = getenv('DB_USER');
-$contrassda = getenv('DB_PASSWORD');
-$sheng = getenv('DB_NAME');
+$servidor = "iasanz.synology.me:3306/plopezg129_WebTFG";
+$usuario="alumno";
+$contrassda="AlumnoSanz$1";
+$sheng="plopezg129_WebTFG";
 
 // Ejemplo de conexión MySQLi
 $conexion = new mysqli($servidor, $usuario, $contrassda, $sheng);
