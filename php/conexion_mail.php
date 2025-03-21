@@ -5,7 +5,7 @@ $Username="cuentapruebaplg1313@gmail.com";
 $Password ="jzur qtov wfrj bjvx";
 
 // este correo que pongas aquí lo visualizará el destinatario
-$From="cuentapruebaplg1313@gmail.com";
+$From="pablopezgomez13@gmail.com";
 
 // tu nombre real
 $FromName="Pablo";
