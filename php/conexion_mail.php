@@ -13,5 +13,5 @@ $FromName="Pablo";
 // la dirección de correo del destinatario o destinatarios
 // si hay varios destinatarios tendrás que crear distintas variables ($AddAddress01,$AddAddress02,...)
 // para realizar pruebas -> envías los correos a tu propia dirección
-$AddAddress="cuentapruebaplg1313@gmail.com";
+$AddAddress="pablopezgomez13@gmail.com";
 ?>
