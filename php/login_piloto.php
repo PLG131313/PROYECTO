@@ -26,10 +26,9 @@ if ($nregistros == 0) {
     // cojo informacion de ese piloto
     $registro = mysqli_fetch_array($resultado);
 
-
     $_SESSION['idusuario'] = $registro['id']; // sesion con su id
-
-
+    $_SESSION['tipo_usuario'] = 'piloto'; // Identificar tipo de usuario
+    $_SESSION['nombre_piloto'] = $registro['nombre']; // Guardar nombre del piloto
 
     // mando 0 que es exito
     echo "0";

@@ -3,31 +3,33 @@ usleep(400000);
 
 require('conexion.php');
 
-// pot post recibe email y contraseña
+// Recibir email y contraseña por POST
 $email = $_POST['email'];
 $contrasena = $_POST['contrasena'];
 
-// select para ver cliente
+// Consulta para verificar cliente
 $consulta = "SELECT * FROM clientes WHERE email='$email' AND contrasena='$contrasena'";
 $resultado = mysqli_query($conexion, $consulta);
 
-// numero de filas
+// Número de filas
 $nregistros = mysqli_num_rows($resultado);
 
-// si no existe errror
+// Si no existe, error
 if ($nregistros == 0) {
     echo "<font face='Calibri' color='red' size='3'>Error de validación. Credenciales incorrectas.</font>";
 } else {
-    // inicia si existe
+    // Iniciar sesión si existe
     session_start();
 
-    // informacion del registro
+    // Información del registro
     $registro = mysqli_fetch_array($resultado);
 
-    $_SESSION['idusuario'] = $registro['id']; // Guardo id en session
-    $_SESSION['cliente_email'] = $registro['email']; // Guardo email
+    $_SESSION['idusuario'] = $registro['id']; // Guardar ID en sesión
+    $_SESSION['cliente_email'] = $registro['email']; // Guardar email en sesión
+    $_SESSION['nombre_cliente'] = $registro['nombre']; // Guardar nombre en sesión
+    $_SESSION['tipo_usuario'] = 'cliente'; // Identificar tipo de usuario
 
-    // Envio 0 de que funciona
+    // Enviar 0 para indicar que funciona
     echo "0";
 }
 mysqli_close($conexion);

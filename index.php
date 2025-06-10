@@ -114,6 +114,44 @@
     </div>
 </section>
 
+<!-- Frase para abrir el login de administrador -->
+<div style="position: fixed; bottom: 10px; right: 10px; font-size: 13px;">
+    <a href="#" class="text-white text-decoration-none" data-bs-toggle="modal" data-bs-target="#adminLoginModal">
+        ¿Eres administrador? Pincha aquí.
+    </a>
+</div>
+
+<!-- Modal de login de administrador -->
+<div class="modal fade" id="adminLoginModal" tabindex="-1" aria-labelledby="adminLoginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content shadow">
+            <div class="modal-header">
+                <h5 class="modal-title" id="adminLoginModalLabel">
+                    <i class="fas fa-user-shield"></i> Acceso de Administrador
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <form id="adminLoginForm">
+                    <div class="mb-3">
+                        <label for="adminId" class="form-label">ID de Administrador</label>
+                        <input type="text" class="form-control" id="adminId" name="adminId" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="adminPassword" class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" id="adminPassword" name="adminPassword" required>
+                    </div>
+                    <div id="adminLoginMessage" class="mt-3 text-center"></div> <!-- respuesta -->
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" onclick="loginAdmin()" class="btn btn-primary">Iniciar Sesión</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Pie de página -->
 <footer class="bg-dark text-light py-4">
     <div class="container text-center">
@@ -139,12 +177,12 @@
             .then(data => {
                 document.getElementById("clientLoginMessage").innerHTML = data; // respuesta
                 if (data == "0") {
-                    window.location.href = "Vistas/HTMLcliente.php"; //paso a cliente
+                    window.location.href = "Vistas/buscar-vuelos.php"; //paso a cliente
                 }
             });
     }
 
-    // Función para iniciar sesión como administrador
+    // Función para iniciar sesión como piloto
     function loginPilot() {
         const formData = new FormData();
         formData.append("pilotId", document.getElementById("pilotId").value);
@@ -158,7 +196,26 @@
             .then(data => {
                 document.getElementById("pilotLoginMessage").innerHTML = data; // respuesta
                 if (data == "0") {
-                    window.location.href = "php/panel_piloto.php"; // paso al login
+                    window.location.href = "Vistas/panel-piloto.php"; // Cambiado a panel_piloto.php
+                }
+            });
+    }
+
+    // Función para iniciar sesión como administrador
+    function loginAdmin() {
+        const formData = new FormData();
+        formData.append("adminId", document.getElementById("adminId").value);
+        formData.append("adminPassword", document.getElementById("adminPassword").value);
+
+        fetch("php/login_admin.php", {
+            method: "POST",
+            body: formData
+        })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("adminLoginMessage").innerHTML = data; // respuesta
+                if (data == "0") {
+                    window.location.href = "php/panel_admin.php"; // Redirige al panel de administrador
                 }
             });
     }
